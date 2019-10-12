@@ -8,11 +8,8 @@ import glob
 try:
     from pathlib import Path
 except ImportError:
-    Path = None
 
-# Drop when Python2 support is dropped
-if Path is None:
-
+    # Drop when Python2 support is dropped
     class Path(str):
         def __new__(cls, path):
             return super(cls, Path).__new__(cls, os.path.normpath(path))
