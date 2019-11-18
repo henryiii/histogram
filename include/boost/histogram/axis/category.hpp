@@ -71,7 +71,7 @@ public:
   template <class It, class = detail::requires_iterator<It>>
   category(It begin, It end, metadata_type meta = {}, allocator_type alloc = {})
       : metadata_base<MetaData>(std::move(meta)), vec_(begin, end, alloc) {
-    if (size() == 0) BOOST_THROW_EXCEPTION(std::invalid_argument("bins > 0 required"));
+    if (size() == 0 && !options_type::test(option::growth)) BOOST_THROW_EXCEPTION(std::invalid_argument("bins > 0 required unless growth is enabled"));
   }
 
   /** Construct axis from iterable sequence of unique values.
